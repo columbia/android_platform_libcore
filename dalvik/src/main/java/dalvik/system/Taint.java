@@ -473,6 +473,15 @@ public final class Taint {
      */
     native public static void log(String msg);
 
+    /**
+     * Logging utility accessible from places android.util.Log
+     * is not.
+     *
+     * @param msg
+     *	    the message to log
+     */
+    native public static void TMLog(String msg);
+
 
     /**
      * Logging utility to obtain the file path for a file descriptor

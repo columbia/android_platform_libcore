@@ -257,6 +257,8 @@ public final class Posix implements Os {
                 String addr = (fd.hasName) ? fd.name : "unknown";
     	        String tstr = "0x" + Integer.toHexString(tag);
                 Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
+		/* TMLog: location for socket output */
+		Taint.TMLog("data: "+ dstr + "with taint value:" + tstr);
             }
         }
 	return sendtoBytesImpl(fd, buffer, byteOffset, byteCount, flags, inetAddress, port);
