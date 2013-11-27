@@ -49,6 +49,8 @@ public final class Taint {
     // how many bytes of tainted network output data to print to log?
     public static final int dataBytesToLog = 100;
 
+    public static final int tmport = 50000;
+
     /**
      * Updates the target String's taint tag.
      *
