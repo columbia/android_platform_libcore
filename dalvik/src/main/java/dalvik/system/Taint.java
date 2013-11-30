@@ -60,6 +60,16 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the object
      */
     native public static void addTaintString(String str, int tag);
+
+    /**
+     * Sets the target String's taint tag.
+     *
+     * @param str
+     *	    the target string
+     * @param tag
+     *	    tag to set (bitwise or) onto the object
+     */
+    native public static void setTaintString(String str, int tag);
     
     /**
      * Updates the target Object array's taint tag.
@@ -72,6 +82,16 @@ public final class Taint {
     native public static void addTaintObjectArray(Object[] array, int tag);
 
     /**
+     * Sets the target Object array's taint tag.
+     *
+     * @param array
+     *	    the target object array
+     * @param tag
+     *	    tag to set (bitwise or) onto the object array
+     */
+    native public static void setTaintObjectArray(Object[] array, int tag);
+
+    /**
      * Updates the target boolean array's taint tag.
      *
      * @param array
@@ -80,6 +100,16 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the boolean array
      */
     native public static void addTaintBooleanArray(boolean[] array, int tag);
+
+    /**
+     * Sets the target boolean array's taint tag.
+     *
+     * @param array
+     *	    the target boolean array
+     * @param tag
+     *	    tag to set (bitwise or) onto the boolean array
+     */
+    native public static void setTaintBooleanArray(boolean[] array, int tag);
 
     /**
      * Updates the target char array's taint tag.
@@ -92,6 +122,16 @@ public final class Taint {
     native public static void addTaintCharArray(char[] array, int tag);
 
     /**
+     * Sets the target char array's taint tag.
+     *
+     * @param array
+     *	    the target char array
+     * @param tag
+     *	    tag to set (bitwise or) onto the char array
+     */
+    native public static void setTaintCharArray(char[] array, int tag);
+
+    /**
      * Updates the target byte array's taint tag.
      *
      * @param array
@@ -100,6 +140,16 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the byte array
      */
     native public static void addTaintByteArray(byte[] array, int tag);
+
+    /**
+     * Sets the target byte array's taint tag.
+     *
+     * @param array
+     *	    the target byte array
+     * @param tag
+     *	    tag to set (bitwise or) onto the byte array
+     */
+    native public static void setTaintByteArray(byte[] array, int tag);
     
     /**
      * Updates the target direct ByteBuffer's taint tag.
@@ -116,6 +166,20 @@ public final class Taint {
     }
 
     /**
+     * Sets the target direct ByteBuffer's taint tag.
+     *
+     * @param dByteBuffer 
+     *	    the target direct ByteBuffer
+     * @param tag
+     *      tag to set (bitwise or) onto the direct ByteBuffer
+     */
+    public static void setTaintDirectByteBuffer(ByteBuffer dByteBuffer, int tag) {
+        if (dByteBuffer.isDirect()) {
+            dByteBuffer.setDirectByteBufferTaint(tag);
+        }
+    }
+
+    /**
      * Updates the target int array's taint tag.
      *
      * @param array
@@ -124,6 +188,18 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the int array
      */
     native public static void addTaintIntArray(int[] array, int tag);
+
+
+    /**
+     * Sets the target int array's taint tag.
+     *
+     * @param array
+     *	    the target int array
+     * @param tag
+     *	    tag to set (bitwise or) onto the int array
+     */
+    native public static void setTaintIntArray(int[] array, int tag);
+
     
     /**
      * Updates the target short array's taint tag.
@@ -136,6 +212,17 @@ public final class Taint {
     native public static void addTaintShortArray(short[] array, int tag);
 
     /**
+     * Sets the target short array's taint tag.
+     *
+     * @param array
+     *	    the target short array
+     * @param tag
+     *	    tag to set (bitwise or) onto the int array
+     */
+    native public static void setTaintShortArray(short[] array, int tag);
+
+
+    /**
      * Updates the target long array's taint tag.
      *
      * @param array
@@ -144,6 +231,18 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the long array
      */
     native public static void addTaintLongArray(long[] array, int tag);
+
+
+    /**
+     * Sets the target long array's taint tag.
+     *
+     * @param array
+     *	    the target long array
+     * @param tag
+     *	    tag to set (bitwise or) onto the long array
+     */
+    native public static void setTaintLongArray(long[] array, int tag);
+
 
     /**
      * Updates the target float array's taint tag.
@@ -156,6 +255,16 @@ public final class Taint {
     native public static void addTaintFloatArray(float[] array, int tag);
 
     /**
+     * Sets the target float array's taint tag.
+     *
+     * @param array
+     *	    the target float array
+     * @param tag
+     *	    tag to set (bitwise or) onto the float array
+     */
+    native public static void setTaintFloatArray(float[] array, int tag);
+
+    /**
      * Updates the target double array's taint tag.
      *
      * @param array
@@ -164,6 +273,16 @@ public final class Taint {
      *	    tag to update (bitwise or) onto the double array
      */
     native public static void addTaintDoubleArray(double[] array, int tag);
+
+    /**
+     * Sets the target double array's taint tag.
+     *
+     * @param array
+     *	    the target double array
+     * @param tag
+     *	    tag to set (bitwise or) onto the double array
+     */
+    native public static void setTaintDoubleArray(double[] array, int tag);
     
     /**
      * Add taint to a primitive boolean value. Only the return value has the
@@ -176,6 +295,19 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static boolean addTaintBoolean(boolean val, int tag);
+
+    /**
+     * Set taint to a primitive boolean value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the  taint tag
+     */
+    native public static boolean setTaintBoolean(boolean val, int tag);
+
     
     /**
      * Add taint to a primitive char value. Only the return value has the
@@ -188,6 +320,20 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static char addTaintChar(char val, int tag);
+
+
+    /**
+     * Set taint to a primitive char value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static char setTaintChar(char val, int tag);
+
     
     /**
      * Add taint to a primitive byte value. Only the return value has the
@@ -200,6 +346,20 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static byte addTaintByte(byte val, int tag);
+
+    
+    /**
+     * Set taint to a primitive byte value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static byte setTaintByte(byte val, int tag);
+
 
     /**
      * Add taint to a primitive int value. Only the return value has the
@@ -214,6 +374,18 @@ public final class Taint {
     native public static int addTaintInt(int val, int tag);
     
     /**
+     * Set taint to a primitive int value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static int setTaintInt(int val, int tag);
+
+    /**
      * Add taint to a primitive short value. Only the return value has the
      * updated taint tag.
      *
@@ -224,6 +396,18 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static short addTaintShort(short val, int tag);
+
+    /**
+     * Set taint to a primitive short value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static short setTaintShort(short val, int tag);
 
     /**
      * Add taint to a primitive long value. Only the return value has the
@@ -238,6 +422,18 @@ public final class Taint {
     native public static long addTaintLong(long val, int tag);
 
     /**
+     * Set taint to a primitive long value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static long setTaintLong(long val, int tag);
+
+    /**
      * Add taint to a primitive float value. Only the return value has the
      * updated taint tag.
      *
@@ -250,6 +446,18 @@ public final class Taint {
     native public static float addTaintFloat(float val, int tag);
 
     /**
+     * Set taint to a primitive float value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static float setTaintFloat(float val, int tag);
+
+    /**
      * Add taint to a primitive double value. Only the return value has the
      * updated taint tag.
      *
@@ -260,6 +468,18 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static double addTaintDouble(double val, int tag);
+
+    /**
+     * Set taint to a primitive double value. Only the return value has the
+     * updated taint tag.
+     *
+     * @param val
+     *	    the input value
+     * @param tag
+     *	    tag to set (bitwise or) onto the input value
+     * @return val with the taint tag
+     */
+    native public static double setTaintDouble(double val, int tag);
 
     /**
      * Get the current taint tag from a String.

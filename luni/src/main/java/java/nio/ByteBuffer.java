@@ -1046,5 +1046,11 @@ public abstract class ByteBuffer extends Buffer implements Comparable<ByteBuffer
             this.block.addTaint(tag);
         }
     }
+
+    public void setDirectByteBufferTaint(int tag) {
+        if (this.isDirect()) {
+            this.block.setTaint(tag);
+        }
+    }
 // end WITH_TAINT_TRACKING
 }
