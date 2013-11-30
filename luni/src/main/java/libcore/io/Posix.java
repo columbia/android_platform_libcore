@@ -278,24 +278,15 @@ public final class Posix implements Os {
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
                 
-                //if (! dstr.trim().contains("output:")) {
-                if (true) {
-                  Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
-                  Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
-                  Taint.setTaintString(addr, Taint.TAINT_CLEAR);
-                
-                  Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
-                  /* TMLog: location for socket output */
-                  Taint.TMLog("data: "+ dstr + " with taint value:" + tstr);
-                
-                  String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
-                  //String msgs[] = {"output:xx:yy:" + "\n", "exit\n"};
+                Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
 
-                  Taint.TMLog("msgs[1]:" + msgs[0]);
-                  Taint.TMLog("msgs[2]:" + msgs[1]);
-
-                  connTMService(Taint.tmport, msgs);
-                }
+                //clear tag values for internal socket comm.
+                Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
+                Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
+                Taint.setTaintString(addr, Taint.TAINT_CLEAR);
+                
+                String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
+                connTMService(Taint.tmport, msgs);
             }
         }
 	return sendtoBytesImpl(fd, buffer, byteOffset, byteCount, flags, inetAddress, port);
