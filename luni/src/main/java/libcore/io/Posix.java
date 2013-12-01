@@ -25,12 +25,33 @@ import java.nio.NioUtils;
 import libcore.util.MutableInt;
 import libcore.util.MutableLong;
 
+import java.net.InetAddress;
+import java.net.Socket;
+import java.io.DataOutputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+
 // begin WITH_TAINT_TRACKING
 import dalvik.system.Taint;
 // end WITH_TAINT_TRACKING
 
 public final class Posix implements Os {
     Posix() { }
+
+  //Support methods for TM
+  private void connTMService(int port, String[] msgs) {
+
+    try {
+      Socket client = new Socket(InetAddress.getLoopbackAddress(), port);
+      DataOutputStream outToTMSvc = new DataOutputStream(client.getOutputStream());
+      for (String msg : msgs) {
+        outToTMSvc.writeUTF(msg);
+      }
+    } catch(IOException e) {
+      //FIXME: not sure whether this is a right way to handle exception here.
+      Taint.TMLog("connTMService:IOException:" + e.toString());
+    }
+  }
 
     public native FileDescriptor accept(FileDescriptor fd, InetSocketAddress peerAddress) throws ErrnoException;
     public native boolean access(String path, int mode) throws ErrnoException;
@@ -256,9 +277,16 @@ public final class Posix implements Os {
                 dstr = dstr.replaceAll("\\p{C}", ".");
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
+                
                 Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
-                /* TMLog: location for socket output */
-                Taint.TMLog("data: "+ dstr + "with taint value:" + tstr);
+
+                //clear tag values for internal socket comm.
+                Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
+                Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
+                Taint.setTaintString(addr, Taint.TAINT_CLEAR);
+                
+                String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
+                connTMService(Taint.tmport, msgs);
             }
         }
 	return sendtoBytesImpl(fd, buffer, byteOffset, byteCount, flags, inetAddress, port);

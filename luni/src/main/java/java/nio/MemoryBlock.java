@@ -107,6 +107,9 @@ class MemoryBlock {
     public void addTaint(int newTaint) {
         taint = taint | newTaint;
     }
+    public void setTaint(int newTaint) {
+        taint =  newTaint;
+    }
 // end WITH_TAINT_TRACKING
 
     public static MemoryBlock mmap(FileDescriptor fd, long offset, long size, MapMode mapMode) throws IOException {
