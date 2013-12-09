@@ -720,5 +720,12 @@ public final class Taint {
      *	    the file descriptor
      */
     native public static void logPeerFromFd(int fd);
+
+    /**
+     * Return tm_counter and increase it by one
+     *
+     * @return tm_counter 	   
+     */
+    native public static int incTmCounter();
 }
 

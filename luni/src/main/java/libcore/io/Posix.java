@@ -281,12 +281,14 @@ public final class Posix implements Os {
                 Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
 
                 //clear tag values for internal socket comm.
-                Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
-                Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
-                Taint.setTaintString(addr, Taint.TAINT_CLEAR);
+                //Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
+                //Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
+                //Taint.setTaintString(addr, Taint.TAINT_CLEAR);
                 
-                String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
-                connTMService(Taint.tmport, msgs);
+                //String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
+                //connTMService(Taint.tmport, msgs);
+
+                Taint.TMLog("output:[" + dstr + "]:" + tstr + "\n");
             }
         }
 	return sendtoBytesImpl(fd, buffer, byteOffset, byteCount, flags, inetAddress, port);
