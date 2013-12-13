@@ -727,5 +727,11 @@ public final class Taint {
      * @return tm_counter 	   
      */
     native public static int incTmCounter();
-}
 
+    /**
+     * Return programe name 
+     *
+     * @return progname 	   
+     */
+    native public static String getProgName();
+}

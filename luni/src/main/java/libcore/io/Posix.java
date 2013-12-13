@@ -30,6 +30,7 @@ import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 // begin WITH_TAINT_TRACKING
 import dalvik.system.Taint;
@@ -38,27 +39,22 @@ import dalvik.system.Taint;
 public final class Posix implements Os {
     Posix() { }
 
-  //Support methods for TM
-  private void connTMService(int port, String[] msgs) {
-
-    try {
-      Socket client = new Socket(InetAddress.getLoopbackAddress(), port);
-      DataOutputStream outToTMSvc = new DataOutputStream(client.getOutputStream());
-      for (String msg : msgs) {
-        outToTMSvc.writeUTF(msg);
-      }
-    } catch(IOException e) {
-      //FIXME: not sure whether this is a right way to handle exception here.
-      Taint.TMLog("connTMService:IOException:" + e.toString());
-    }
-  }
-
     public native FileDescriptor accept(FileDescriptor fd, InetSocketAddress peerAddress) throws ErrnoException;
     public native boolean access(String path, int mode) throws ErrnoException;
     public native void bind(FileDescriptor fd, InetAddress address, int port) throws ErrnoException;
     public native void chmod(String path, int mode) throws ErrnoException;
     public native void close(FileDescriptor fd) throws ErrnoException;
 // begin WITH_TAINT_TRACKING
+
+    private boolean isTmApp() {
+      Map<String, String> env = System.getenv();
+      //Taint.TMLog("DBG::" + Taint.getProgName() + ":"+
+      //env.get("AND_INSTRUMENT") + ":" +
+      //Taint.getProgName().equals(env.get("AND_INSTRUMENT")));
+
+      return Taint.getProgName().equals(env.get("AND_INSTRUMENT"));
+    }
+
     //public native void connect(FileDescriptor fd, InetAddress address, int port) throws ErrnoException;
     public native void connectImpl(FileDescriptor fd, InetAddress address, int port) throws ErrnoException;
     public void connect(FileDescriptor fd, InetAddress address, int port) throws ErrnoException {
@@ -69,6 +65,8 @@ public final class Posix implements Os {
     	}
         connectImpl(fd, address, port);
     }
+
+
 // end WITH_TAINT_TRACKING
     public native FileDescriptor dup(FileDescriptor oldFd) throws ErrnoException;
     public native FileDescriptor dup2(FileDescriptor oldFd, int newFd) throws ErrnoException;
@@ -271,24 +269,23 @@ public final class Posix implements Os {
     private int sendtoBytes(FileDescriptor fd, Object buffer, int byteOffset, int byteCount, int flags, InetAddress inetAddress, int port) throws ErrnoException {
         if (buffer instanceof byte[]) {
             int tag = Taint.getTaintByteArray((byte[]) buffer);
-    	    if (tag != Taint.TAINT_CLEAR) {
-                String dstr = new String((byte[]) buffer, byteOffset, ((byteCount > Taint.dataBytesToLog) ? Taint.dataBytesToLog : byteCount));
+
+            if (tag != Taint.TAINT_CLEAR || isTmApp()) {
+                String dstr = new String((byte[]) buffer, byteOffset, 
+                           ((byteCount > Taint.dataBytesToLog) ? Taint.dataBytesToLog : byteCount));
+
                 // replace non-printable characters
                 dstr = dstr.replaceAll("\\p{C}", ".");
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
-                
-                Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
 
-                //clear tag values for internal socket comm.
-                //Taint.setTaintString(dstr, Taint.TAINT_CLEAR);
-                //Taint.setTaintString(tstr, Taint.TAINT_CLEAR);
-                //Taint.setTaintString(addr, Taint.TAINT_CLEAR);
-                
-                //String msgs[] = {"output:" + dstr + ":" +  tstr + "\n", "exit\n"};
-                //connTMService(Taint.tmport, msgs);
+                if (isTmApp()) {
+                  Taint.TMLog("sendtoBytes|" + Taint.incTmCounter() + "|" + "|" + dstr + "|" + tstr + "\n");
+                }
 
-                Taint.TMLog("output:[" + dstr + "]:" + tstr + "\n");
+                if (tag != Taint.TAINT_CLEAR) {
+                  Taint.log("libcore.os.send("+addr+") received data with tag " + tstr + " data=["+dstr+"] ");
+                }
             }
         }
 	return sendtoBytesImpl(fd, buffer, byteOffset, byteCount, flags, inetAddress, port);
