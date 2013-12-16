@@ -32,6 +32,8 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.util.Map;
 
+import java.lang.Thread;
+
 // begin WITH_TAINT_TRACKING
 import dalvik.system.Taint;
 // end WITH_TAINT_TRACKING
@@ -280,7 +282,12 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
 
                 if (isTmApp()) {
-                  Taint.TMLog("sendtoBytes|" + Taint.incTmCounter() + "|" + "|" + dstr + "|" + tstr + "\n");
+                  //FIXME: now need to fix thread id part, since native tid
+                  //gathered from 'self.threadId' differs from dalvik
+                  //'generated' tid that we see from here.
+                  Taint.TMLog("sendtoBytes|" + Taint.incTmCounter() + "|" + 
+                              Thread.currentThread().getId() + "|" + dstr + 
+                              "|" + tstr + "\n");
                 }
 
                 if (tag != Taint.TAINT_CLEAR) {
