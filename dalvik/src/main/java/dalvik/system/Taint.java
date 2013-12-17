@@ -729,7 +729,7 @@ public final class Taint {
     native public static int incTmCounter();
 
     /**
-     * Return programe name 
+     * Return program name 
      *
      * @return progname 	   
      */
