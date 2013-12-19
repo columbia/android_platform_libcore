@@ -141,7 +141,7 @@ public final class Posix implements Os {
             dstr = dstr.replaceAll("\\p{C}", ".");
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
-                Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                Taint.TMLog("libcore.os.read0|" + Taint.incTmCounter() + "|" +
                             Thread.currentThread().getId() + "|" + dstr +
                             "|" + tstr + "\n");
             }
@@ -160,7 +160,7 @@ public final class Posix implements Os {
                 Taint.logPathFromFd(fdInt);
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                    Taint.TMLog("libcore.os.pwrite0|" + Taint.incTmCounter() + "|" +
                                 Thread.currentThread().getId() + "|" + buffer.hashCode() +
                                 "|" + tstr + "\n");
                 }
@@ -195,7 +195,7 @@ public final class Posix implements Os {
                 Taint.logPathFromFd(fdInt);
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                    Taint.TMLog("libcore.os.pwrite1|" + Taint.incTmCounter() + "|" +
                                 Thread.currentThread().getId() + "|" + dstr +
                                 "|" + tstr + "\n");
                 }
@@ -235,7 +235,7 @@ public final class Posix implements Os {
             dstr = dstr.replaceAll("\\p{C}", ".");
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
-                Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                Taint.TMLog("libcore.os.read1|" + Taint.incTmCounter() + "|" +
                             Thread.currentThread().getId() + "|" + dstr +
                             "|" + tstr + "\n");
               }
@@ -269,7 +269,7 @@ public final class Posix implements Os {
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                    Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
                                 Thread.currentThread().getId() + "|" + buffer.hashCode() +
                                 "|" + tstr + "\n");
                   }
@@ -306,7 +306,7 @@ public final class Posix implements Os {
                   //FIXME: now need to fix thread id part, since native tid
                   //gathered from 'self.threadId' differs from dalvik
                   //'generated' tid that we see from here.
-                  Taint.TMLog("sendtoBytes|" + Taint.incTmCounter() + "|" +
+                  Taint.TMLog("libcore.os.send0|" + Taint.incTmCounter() + "|" +
                               Thread.currentThread().getId() + "|" + dstr +
                               "|" + tstr + "\n");
                 }
@@ -349,7 +349,7 @@ public final class Posix implements Os {
                 Taint.logPathFromFd(fdInt);
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                    Taint.TMLog("libcore.os.write0|" + Taint.incTmCounter() + "|" +
                                 Thread.currentThread().getId() + "|" + buffer.hashCode() +
                                 "|" + tstr + "\n");
                   }
@@ -387,7 +387,7 @@ public final class Posix implements Os {
                 Taint.logPathFromFd(fdInt);
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    Taint.TMLog("write|" + Taint.incTmCounter() + "|" +
+                    Taint.TMLog("libcore.os.write1|" + Taint.incTmCounter() + "|" +
                                 Thread.currentThread().getId() + "|" + dstr +
                                 "|" + tstr + "\n");
                   }
