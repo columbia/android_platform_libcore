@@ -704,7 +704,7 @@ public class OpenSSLSocketImpl
 // begin WITH_TAINT_TRACKING
             int tag = Taint.getTaintInt(oneByte);
             FileDescriptor fd = socket.getFileDescriptor$();
-            if (tag != Taint.TAINT_CLEAR) {
+            if (tag != (Taint.TAINT_CLEAR) || Taint.isTMeasureAPP()) {
                 String dstr = String.valueOf(oneByte);
                 // We only display at most Taint.dataBytesToLog characters in logcat of data
                 if (dstr.length() > Taint.dataBytesToLog) {
