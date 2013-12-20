@@ -742,6 +742,7 @@ public final class Taint {
     */
     public static boolean isTMeasureAPP() {
       Map<String, String> env = System.getenv();
-      return getProgName().equals(env.get("AND_INSTRUMENT"));
+      //return getProgName().equals(env.get("AND_INSTRUMENT"));
+      return false;
     }
 }
