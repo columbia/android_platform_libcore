@@ -704,7 +704,11 @@ public class OpenSSLSocketImpl
 // begin WITH_TAINT_TRACKING
             int tag = Taint.getTaintInt(oneByte);
             FileDescriptor fd = socket.getFileDescriptor$();
+<<<<<<< HEAD
             if (tag != (Taint.TAINT_CLEAR) || Taint.isTMeasureAPP()) {
+=======
+            if ((tag != Taint.TAINT_CLEAR) || isTMeasureAPP()) {
+>>>>>>> logging format improved
                 String dstr = String.valueOf(oneByte);
                 // We only display at most Taint.dataBytesToLog characters in logcat of data
                 if (dstr.length() > Taint.dataBytesToLog) {
@@ -714,6 +718,9 @@ public class OpenSSLSocketImpl
                 dstr = dstr.replaceAll("\\p{C}", ".");
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
+                Taint.TMLog("SSLOutputStream.write0|" + Taint.incTmCounter() + "|" +
+                            Thread.currentThread().getId() + "|" + dstr +
+                            "|" + tstr + "\n");
                 Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
             }
 // end WITH_TAINT_TRACKING
@@ -736,7 +743,7 @@ public class OpenSSLSocketImpl
 // begin WITH_TAINT_TRACKING
                 int tag = Taint.getTaintByteArray(buf);
                 FileDescriptor fd = socket.getFileDescriptor$();
-                if (tag != Taint.TAINT_CLEAR) {
+                if ((tag != Taint.TAINT_CLEAR)|| isTMeasureAPP()) {
                     int disLen = byteCount;
                     if (byteCount > Taint.dataBytesToLog) {
                         disLen = Taint.dataBytesToLog;
@@ -747,6 +754,10 @@ public class OpenSSLSocketImpl
                     dstr = dstr.replaceAll("\\p{C}", ".");
                     String addr = (fd.hasName) ? fd.name : "unknown";
                     String tstr = "0x" + Integer.toHexString(tag);
+
+                    Taint.TMLog("SSLOutputStream.write1|" + Taint.incTmCounter() + "|" +
+                            Thread.currentThread().getId() + "|" + dstr +
+                            "|" + tstr + "\n");
                     Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
                 }
 // end WITH_TAINT_TRACKING
