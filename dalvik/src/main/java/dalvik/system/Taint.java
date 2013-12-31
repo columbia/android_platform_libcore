@@ -20,6 +20,7 @@
 package dalvik.system;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
 
 /**
  * Provides a Taint interface for the Dalvik VM. This class is used for
@@ -734,4 +735,13 @@ public final class Taint {
      * @return progname 	   
      */
     native public static String getProgName();
+
+   /**
+    * @hide
+    *@return boolean
+    */
+    public static boolean isTMeasureAPP() {
+      Map<String, String> env = System.getenv();
+      return getProgName().equals(env.get("AND_INSTRUMENT"));
+    }
 }
