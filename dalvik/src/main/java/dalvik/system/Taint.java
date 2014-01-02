@@ -737,11 +737,12 @@ public final class Taint {
     native public static String getProgName();
 
    /**
-    * @hide
-    *@return boolean
+    *
+    * @return boolean
     */
-    public static boolean isTMeasureAPP() {
-      Map<String, String> env = System.getenv();
-      return getProgName().equals(env.get("AND_INSTRUMENT"));
-    }
+    // public static boolean isTMeasureAPP() {
+    //   Map<String, String> env = System.getenv();
+    //   return getProgName().equals(env.get("AND_INSTRUMENT"));
+    // }
+  native public static boolean isTMeasureAPP();
 }
