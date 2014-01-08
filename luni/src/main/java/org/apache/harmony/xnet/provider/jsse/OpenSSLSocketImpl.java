@@ -715,8 +715,8 @@ public class OpenSSLSocketImpl
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
                 Taint.TMLog("SSLOutputStream.write0|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|[" + dstr +
-                            "]|" + tstr + "\n");
+                            Thread.currentThread().getId() + "|{" + dstr +
+                            "}|" + tstr + "\n");
                 Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
             }
 // end WITH_TAINT_TRACKING
@@ -752,8 +752,8 @@ public class OpenSSLSocketImpl
                     String tstr = "0x" + Integer.toHexString(tag);
 
                     Taint.TMLog("SSLOutputStream.write1|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|[" + dstr +
-                            "]|" + tstr + "\n");
+                            Thread.currentThread().getId() + "|{" + dstr +
+                            "}|" + tstr + "\n");
                     Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
                 }
 // end WITH_TAINT_TRACKING
