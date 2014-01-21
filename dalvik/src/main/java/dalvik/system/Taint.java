@@ -22,6 +22,9 @@ package dalvik.system;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Provides a Taint interface for the Dalvik VM. This class is used for
  * implementing Taint Source and Sink functionality.
@@ -740,9 +743,28 @@ public final class Taint {
     *
     * @return boolean
     */
-    // public static boolean isTMeasureAPP() {
-    //   Map<String, String> env = System.getenv();
-    //   return getProgName().equals(env.get("AND_INSTRUMENT"));
-    // }
   native public static boolean isTMeasureAPP();
+
+  /**
+   *
+   * @return String
+   */
+  public static String getHashString(byte[] input, int offset, int len) {
+	byte[] mdbytes = null;
+	try {
+	    MessageDigest md = MessageDigest.getInstance("SHA-256");
+	    md.update(input, offset, len);
+	    mdbytes = md.digest();
+	} catch (NoSuchAlgorithmException ne)  {
+	    for (int i = 0; i < len; i++) {
+		mdbytes[i] = input[offset + i];
+	    }
+        }
+
+	StringBuffer hexString = new StringBuffer();
+	for (int i = 0; i < mdbytes.length; i++) {
+	    hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
+	}
+    return  hexString.toString();
+  }
 }

@@ -142,7 +142,7 @@ public final class Posix implements Os {
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
                 Taint.TMLog("libcore.os.read0|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|{" + dstr +
+                            Thread.currentThread().getId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
                             "}|" + tstr + "\n");
             }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
@@ -161,7 +161,7 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     Taint.TMLog("libcore.os.pwrite0|" + Taint.incTmCounter() + "|" +
-                                Thread.currentThread().getId() + "|{" + buffer.hashCode() +
+                                Thread.currentThread().getId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
                                 "}|" + tstr + "\n");
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing a direct ByteBuffer with tag " + tstr);
@@ -196,7 +196,7 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     Taint.TMLog("libcore.os.pwrite1|" + Taint.incTmCounter() + "|" +
-                                Thread.currentThread().getId() + "|{" + dstr +
+                                Thread.currentThread().getId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
                                 "}|" + tstr + "\n");
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");
@@ -236,7 +236,7 @@ public final class Posix implements Os {
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
                 Taint.TMLog("libcore.os.read1|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|{" + dstr +
+                            Thread.currentThread().getId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
                             "}|" + tstr + "\n");
               }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
@@ -270,7 +270,7 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
-                                Thread.currentThread().getId() + "|{" + buffer.hashCode() +
+                                Thread.currentThread().getId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) + 
                                 "}|" + tstr + "\n");
                   }
                 Taint.log("libcore.os.sendto(" + addr + ") received a ByteBuffer with tag " + tstr);
@@ -307,7 +307,7 @@ public final class Posix implements Os {
                   //gathered from 'self.threadId' differs from dalvik
                   //'generated' tid that we see from here.
                   Taint.TMLog("libcore.os.send0|" + Taint.incTmCounter() + "|" +
-                              Thread.currentThread().getId() + "|{" + dstr +
+                              Thread.currentThread().getId() + "|{" + Taint.getHashString((byte[]) buffer, byteOffset, byteCount) +
                               "}|" + tstr + "\n");
                 }
 
@@ -350,7 +350,7 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     Taint.TMLog("libcore.os.write0|" + Taint.incTmCounter() + "|" +
-                                Thread.currentThread().getId() + "|{" + buffer.hashCode() +
+                                Thread.currentThread().getId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
                                 "}|" + tstr + "\n");
                   }
 
@@ -388,7 +388,7 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     Taint.TMLog("libcore.os.write1|" + Taint.incTmCounter() + "|" +
-                                Thread.currentThread().getId() + "|{" + dstr +
+                                Thread.currentThread().getId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
                                 "}|" + tstr + "\n");
                   }
                 Taint.log("libcore.os.write(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");
