@@ -714,9 +714,10 @@ public class OpenSSLSocketImpl
                 dstr = dstr.replaceAll("\\p{C}", ".");
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
+        //XXX - TMLog : We only record a single integer value -- instead of calculating hash value for it.
                 Taint.TMLog("SSLOutputStream.write0|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|" + dstr +
-                            "|" + tstr + "\n");
+                            Taint.getNativeThreadId() + "|{" + String.valueOf(oneByte) +
+                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, 0) + "\n");
                 Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
             }
 // end WITH_TAINT_TRACKING
@@ -752,8 +753,8 @@ public class OpenSSLSocketImpl
                     String tstr = "0x" + Integer.toHexString(tag);
 
                     Taint.TMLog("SSLOutputStream.write1|" + Taint.incTmCounter() + "|" +
-                            Thread.currentThread().getId() + "|" + dstr +
-                            "|" + tstr + "\n");
+                            Taint.getNativeThreadId() + "|{" + Taint.getHashString(buf, offset, byteCount) + 
+                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, 0) + "\n");
                     Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
                 }
 // end WITH_TAINT_TRACKING
