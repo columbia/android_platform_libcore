@@ -746,6 +746,7 @@ public final class Taint {
   native public static boolean isTMeasureAPP();
 
   /**
+   * Method to produce hash reslut of input of byte array.
    *
    * @return String
    */
@@ -769,12 +770,22 @@ public final class Taint {
   }
 
   /**
-   * @return String
+   * Method that returns native thread ID which is different from one
+   * we get from JVM.
+   *
+   * @return int
    */
   native public static int getNativeThreadId();
 
  /**
+  * Method that returns string representation of stack trace.
+  * XXX: lengthy stack trace often overflows logcat channel.
   *
+  * @param offset 
+  *     Stack elements to begin.
+  * @param len
+  *     Number of elements to output.
+  * @return String
   */
   public static String getStackString(int offset, int len) {
     StackTraceElement m[] = Thread.currentThread().getStackTrace();
@@ -782,7 +793,8 @@ public final class Taint {
     int i = 0, j = 0;
     for (StackTraceElement s: m) {
         if (i >= offset && (len == 0 || len >= j)) {
-            sTrace += (s.getClassName() + "." + s.getMethodName()) + " : ";
+            //sTrace += (s.getClassName() + "." + s.getMethodName()) + "<-";
+            sTrace += s.getMethodName() + "<-";
             j++;
         }
         i++;
