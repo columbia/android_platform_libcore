@@ -144,7 +144,7 @@ public final class Posix implements Os {
                 String fname  = (fd.hasName) ? fd.name : "unknown";
                 Taint.TMLog("libcore.os.read0|" + Taint.incTmCounter() + "|" +
                             Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
-                            "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                            "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
             }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
             Taint.addTaintByteArray((byte[])buffer, tag);
@@ -164,7 +164,7 @@ public final class Posix implements Os {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
                     Taint.TMLog("libcore.os.pwrite0|" + Taint.incTmCounter() + "|" +
                                 Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
-                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing a direct ByteBuffer with tag " + tstr);
                 Taint.addTaintFile(fdInt, tag);
@@ -200,7 +200,7 @@ public final class Posix implements Os {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
                     Taint.TMLog("libcore.os.pwrite1|" + Taint.incTmCounter() + "|" +
                                 Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
-                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");
                 Taint.addTaintFile(fdInt, tag);
@@ -241,7 +241,7 @@ public final class Posix implements Os {
                 String fname  = (fd.hasName) ? fd.name : "unknown";
                 Taint.TMLog("libcore.os.read1|" + Taint.incTmCounter() + "|" +
                             Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
-                            "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                            "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
               }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
             Taint.addTaintByteArray((byte[])buffer, tag);
@@ -276,7 +276,7 @@ public final class Posix implements Os {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
                     Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
                                 Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) + 
-                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
                   }
                 Taint.log("libcore.os.sendto(" + addr + ") received a ByteBuffer with tag " + tstr);
             }
@@ -310,7 +310,7 @@ public final class Posix implements Os {
                 if (Taint.isTMeasureAPP()) {
                   Taint.TMLog("libcore.os.send0|" + Taint.incTmCounter() + "|" +
                               Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, byteOffset, byteCount) +
-                              "}|" + tstr + "|" + addr + "|" + Taint.getStackString(3, 0) + "\n");
+                              "}|" + tstr + "|" + addr + "|" + Taint.getStackString(3, -1) + "\n");
                 }
 
                 if (tag != Taint.TAINT_CLEAR) {
@@ -354,7 +354,7 @@ public final class Posix implements Os {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
                     Taint.TMLog("libcore.os.write0|" + Taint.incTmCounter() + "|" +
                                 Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
-                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
                   }
 
                 Taint.log("libcore.os.write(" + fdInt + ") writing a direct ByteBuffer with tag " + tstr);
@@ -393,7 +393,7 @@ public final class Posix implements Os {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
                     Taint.TMLog("libcore.os.write1|" + Taint.incTmCounter() + "|" +
                                 Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
-                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, 0) + "\n");
+                                "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
                   }
                 Taint.log("libcore.os.write(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");
                 Taint.addTaintFile(fdInt, tag);
