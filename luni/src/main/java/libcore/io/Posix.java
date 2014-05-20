@@ -147,11 +147,11 @@ public final class Posix implements Os {
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
                 String fname  = (fd.hasName) ? fd.name : "unknown";
+		String hash = Taint.getHashString((byte[]) buffer, bufferOffset, byteCount);
                 Taint.TMLog("libcore.os.read0|" + Taint.incTmCounter() + "|" +
-                             Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
+                             Taint.getNativeThreadId() + "|{" + hash +
                              "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 		if (tag != Taint.TAINT_CLEAR) {
-			String hash = Taint.getHashString((byte[]) buffer, bufferOffset, byteCount);
 			String clearText = new String((byte[])buffer, bufferOffset, byteCount);
 			clearText = clearText.replaceAll("\n", "");
 			hash = hash.concat(" - ");
@@ -176,12 +176,12 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
+		    String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 		    Taint.TMLog("libcore.os.pwrite0|" + Taint.incTmCounter() + "|" +
-				    Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
+				    Taint.getNativeThreadId() + "|{" + hash +
 				    "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 		    
 		    if (tag != Taint.TAINT_CLEAR) {
-			String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 			String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
 			clearText = clearText.replaceAll("\n", "");
 			hash = hash.concat(" - ");
@@ -222,11 +222,11 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
+		    String hash = Taint.getHashString((byte[]) buffer, bufferOffset, byteCount);
 		    Taint.TMLog("libcore.os.pwrite1|" + Taint.incTmCounter() + "|" +
-				    Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, bufferOffset, byteCount) +
+				    Taint.getNativeThreadId() + "|{" + hash +
                                     "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 		    if (tag != Taint.TAINT_CLEAR) {
-			String hash = Taint.getHashString((byte[]) buffer, bufferOffset, byteCount);
 			String clearText = new String((byte[])buffer, bufferOffset, byteCount);
 			clearText = clearText.replaceAll("\n", "");
 			hash = hash.concat(" - ");
@@ -272,11 +272,11 @@ public final class Posix implements Os {
             String tstr = "0x" + Integer.toHexString(tag);
             if (Taint.isTMeasureAPP()) {
                 String fname  = (fd.hasName) ? fd.name : "unknown";
+		String hash = Taint.getHashString((byte[]) buffer, offset, byteCount);
 		Taint.TMLog("libcore.os.read1|" + Taint.incTmCounter() + "|" +
-				Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
+				Taint.getNativeThreadId() + "|{" + hash +
                                 "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 		if (tag != Taint.TAINT_CLEAR) {
-				String hash = Taint.getHashString((byte[]) buffer, offset, byteCount);
 				String clearText = new String((byte[])buffer, offset, byteCount);
 				clearText = clearText.replaceAll("\n", "");
 				hash = hash.concat(" - ");
@@ -315,11 +315,11 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
 			String fname  = (fd.hasName) ? fd.name : "unknown";
+			String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 			Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
-					Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) + 
+					Taint.getNativeThreadId() + "|{" + hash + 
 					"}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 			if (tag != Taint.TAINT_CLEAR) {
-				String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 				String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
 				clearText = clearText.replaceAll("\n", "");
 				hash = hash.concat(" - ");
@@ -357,11 +357,11 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
 
                 if (Taint.isTMeasureAPP()) {
+			String hash = Taint.getHashString((byte[]) buffer, byteOffset, byteCount);
 			Taint.TMLog("libcore.os.send0|" + Taint.incTmCounter() + "|" +
-					Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, byteOffset, byteCount) +
+					Taint.getNativeThreadId() + "|{" + hash +
 					"}|" + tstr + "|" + addr + "|" + Taint.getStackString(3, -1) + "\n");
 			if (tag != Taint.TAINT_CLEAR) {
-				String hash = Taint.getHashString((byte[]) buffer, byteOffset, byteCount);
 				String clearText = new String((byte[])buffer, byteOffset, byteCount);
 				clearText = clearText.replaceAll("\n", "");
 				hash = hash.concat(" - ");
@@ -410,11 +410,11 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
 			String fname  = (fd.hasName) ? fd.name : "unknown";
+			String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 			Taint.TMLog("libcore.os.write0|" + Taint.incTmCounter() + "|" +
-					Taint.getNativeThreadId() + "|{" + Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining()) +
+					Taint.getNativeThreadId() + "|{" + hash +
 					"}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 			if (tag != Taint.TAINT_CLEAR) {
-				String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
 				String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
 				clearText = clearText.replaceAll("\n", "");
 				hash = hash.concat(" - ");
@@ -457,11 +457,11 @@ public final class Posix implements Os {
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
                     String fname  = (fd.hasName) ? fd.name : "unknown";
+		    String hash = Taint.getHashString((byte[]) buffer, offset, byteCount);
 		    Taint.TMLog("libcore.os.write1|" + Taint.incTmCounter() + "|" +
-				    Taint.getNativeThreadId() + "|{" + Taint.getHashString((byte[]) buffer, offset, byteCount) +
+				    Taint.getNativeThreadId() + "|{" + hash +
 				    "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
 		    if (tag != Taint.TAINT_CLEAR) {
-				String hash = Taint.getHashString((byte[]) buffer, offset, byteCount);
 				String clearText = new String((byte[])buffer, offset, byteCount);
 				clearText = clearText.replaceAll("\n", "");
 				hash = hash.concat(" - ");
