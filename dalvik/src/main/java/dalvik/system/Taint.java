@@ -707,6 +707,14 @@ public final class Taint {
      *        the message to log
      */
     native public static void TMLog(String msg);
+    
+    /**
+     * Function that logs the hash and the corresponding plaintext
+     * 
+     * @param logEntry
+     *        the hashed message
+     */
+    native public static void TMHashLog(String logEntry);
 
 
     /**
@@ -754,20 +762,19 @@ public final class Taint {
     byte[] mdbytes = null;
     try {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(input, offset, len);
-        mdbytes = md.digest();
+	md.update(input, offset, len);
+	mdbytes = md.digest();
     } catch (NoSuchAlgorithmException ne)  {
-        for (int i = 0; i < len; i++) {
-        mdbytes[i] = input[offset + i];
-        }
-        }
-
+	for (int i = 0; i < len; i++) {
+	    mdbytes[i] = input[offset + i];
+	}
+    }
     StringBuffer hexString = new StringBuffer();
     for (int i = 0; i < mdbytes.length; i++) {
-        hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
+	hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
     }
     return  hexString.toString();
-  }
+}
 
   /**
    * Method that returns native thread ID which is different from one
