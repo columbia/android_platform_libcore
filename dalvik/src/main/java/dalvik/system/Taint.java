@@ -28,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Provides a Taint interface for the Dalvik VM. This class is used for
  * implementing Taint Source and Sink functionality.
- * 
+ *
  */
 public final class Taint {
 
@@ -49,7 +49,7 @@ public final class Taint {
     public static final int TAINT_DEVICE_SN     = 0x00002000;
     public static final int TAINT_ACCOUNT       = 0x00004000;
     public static final int TAINT_HISTORY       = 0x00008000;
-    
+
     // how many bytes of tainted network output data to print to log?
     public static final int dataBytesToLog = 100;
 
@@ -74,7 +74,7 @@ public final class Taint {
      *        tag to set (bitwise or) onto the object
      */
     native public static void setTaintString(String str, int tag);
-    
+
     /**
      * Updates the target Object array's taint tag.
      *
@@ -154,11 +154,11 @@ public final class Taint {
      *        tag to set (bitwise or) onto the byte array
      */
     native public static void setTaintByteArray(byte[] array, int tag);
-    
+
     /**
      * Updates the target direct ByteBuffer's taint tag.
      *
-     * @param dByteBuffer 
+     * @param dByteBuffer
      *        the target direct ByteBuffer
      * @param tag
      *      tag to update (bitwise or) onto the direct ByteBuffer
@@ -172,7 +172,7 @@ public final class Taint {
     /**
      * Sets the target direct ByteBuffer's taint tag.
      *
-     * @param dByteBuffer 
+     * @param dByteBuffer
      *        the target direct ByteBuffer
      * @param tag
      *      tag to set (bitwise or) onto the direct ByteBuffer
@@ -204,7 +204,7 @@ public final class Taint {
      */
     native public static void setTaintIntArray(int[] array, int tag);
 
-    
+
     /**
      * Updates the target short array's taint tag.
      *
@@ -287,7 +287,7 @@ public final class Taint {
      *        tag to set (bitwise or) onto the double array
      */
     native public static void setTaintDoubleArray(double[] array, int tag);
-    
+
     /**
      * Add taint to a primitive boolean value. Only the return value has the
      * updated taint tag.
@@ -312,7 +312,7 @@ public final class Taint {
      */
     native public static boolean setTaintBoolean(boolean val, int tag);
 
-    
+
     /**
      * Add taint to a primitive char value. Only the return value has the
      * updated taint tag.
@@ -338,7 +338,7 @@ public final class Taint {
      */
     native public static char setTaintChar(char val, int tag);
 
-    
+
     /**
      * Add taint to a primitive byte value. Only the return value has the
      * updated taint tag.
@@ -351,7 +351,7 @@ public final class Taint {
      */
     native public static byte addTaintByte(byte val, int tag);
 
-    
+
     /**
      * Set taint to a primitive byte value. Only the return value has the
      * updated taint tag.
@@ -376,7 +376,7 @@ public final class Taint {
      * @return val with the added taint tag
      */
     native public static int addTaintInt(int val, int tag);
-    
+
     /**
      * Set taint to a primitive int value. Only the return value has the
      * updated taint tag.
@@ -497,7 +497,7 @@ public final class Taint {
     /**
      * Get the current taint tag from an Object array.
      *
-     * @param array 
+     * @param array
      *        the target Object array
      * @return the taint tag
      */
@@ -506,7 +506,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a boolean array.
      *
-     * @param array 
+     * @param array
      *        the target boolean array
      * @return the taint tag
      */
@@ -515,7 +515,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a char array.
      *
-     * @param array 
+     * @param array
      *        the target char array
      * @return the taint tag
      */
@@ -524,7 +524,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a byte array.
      *
-     * @param array 
+     * @param array
      *        the target byte array
      * @return the taint tag
      */
@@ -533,7 +533,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a direct ByteBuffer.
      *
-     * @param dByteBuffer 
+     * @param dByteBuffer
      *        the target direct ByteBuffer
      * @return the taint tag
      */
@@ -548,7 +548,7 @@ public final class Taint {
     /**
      * Get the current taint tag from an int array.
      *
-     * @param array 
+     * @param array
      *        the target int array
      * @return the taint tag
      */
@@ -557,7 +557,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a short array.
      *
-     * @param array 
+     * @param array
      *        the target short array
      * @return the taint tag
      */
@@ -566,7 +566,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a long array.
      *
-     * @param array 
+     * @param array
      *        the target long array
      * @return the taint tag
      */
@@ -575,7 +575,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a float array.
      *
-     * @param array 
+     * @param array
      *        the target float array
      * @return the taint tag
      */
@@ -584,7 +584,7 @@ public final class Taint {
     /**
      * Get the current taint tag from a double array.
      *
-     * @param array 
+     * @param array
      *        the target double array
      * @return the taint tag
      */
@@ -603,7 +603,7 @@ public final class Taint {
      * Get the current taint tag from a primitive char.
      *
      * @param val
-     *        the target char 
+     *        the target char
      * @return the taint tag
      */
     native public static int getTaintChar(char val);
@@ -612,7 +612,7 @@ public final class Taint {
      * Get the current taint tag from a primitive byte.
      *
      * @param val
-     *        the target byte 
+     *        the target byte
      * @return the taint tag
      */
     native public static int getTaintByte(byte val);
@@ -621,16 +621,16 @@ public final class Taint {
      * Get the current taint tag from a primitive int.
      *
      * @param val
-     *        the target int 
+     *        the target int
      * @return the taint tag
      */
     native public static int getTaintInt(int val);
-    
+
     /**
      * Get the current taint tag from a primitive short.
      *
      * @param val
-     *        the target short 
+     *        the target short
      * @return the taint tag
      */
     native public static int getTaintShort(short val);
@@ -639,7 +639,7 @@ public final class Taint {
      * Get the current taint tag from a primitive long.
      *
      * @param val
-     *        the target long 
+     *        the target long
      * @return the taint tag
      */
     native public static int getTaintLong(long val);
@@ -648,7 +648,7 @@ public final class Taint {
      * Get the current taint tag from a primitive float.
      *
      * @param val
-     *        the target float 
+     *        the target float
      * @return the taint tag
      */
     native public static int getTaintFloat(float val);
@@ -657,7 +657,7 @@ public final class Taint {
      * Get the current taint tag from a primitive double.
      *
      * @param val
-     *        the target double 
+     *        the target double
      * @return the taint tag
      */
     native public static int getTaintDouble(double val);
@@ -670,7 +670,7 @@ public final class Taint {
      * @return the taint tag
      */
     native public static int getTaintRef(Object obj);
-    
+
     /**
      * Get the taint tag from a file identified by a descriptor.
      *
@@ -679,7 +679,7 @@ public final class Taint {
      * @return the taint tag
      */
     native public static int getTaintFile(int fd);
-    
+
     /**
      * add a taint tag to a file identified by a descriptor
      *
@@ -707,10 +707,10 @@ public final class Taint {
      *        the message to log
      */
     native public static void TMLog(String msg);
-    
+
     /**
      * Function that logs the hash and the corresponding plaintext
-     * 
+     *
      * @param logEntry
      *        the hashed message
      */
@@ -733,17 +733,26 @@ public final class Taint {
      */
     native public static void logPeerFromFd(int fd);
 
+
+  /**
+   * Logging utility to obtatin the file path for a file descriptor and return
+   * the String.
+   */
+
+  native public static String logPathFromFdRetStr(int fd);
+
+
     /**
      * Return tm_counter and increase it by one
      *
-     * @return tm_counter        
+     * @return tm_counter
      */
     native public static int incTmCounter();
 
     /**
-     * Return program name 
+     * Return program name
      *
-     * @return progname        
+     * @return progname
      */
     native public static String getProgName();
 
@@ -762,16 +771,16 @@ public final class Taint {
     byte[] mdbytes = null;
     try {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-	md.update(input, offset, len);
-	mdbytes = md.digest();
+        md.update(input, offset, len);
+        mdbytes = md.digest();
     } catch (NoSuchAlgorithmException ne)  {
-	for (int i = 0; i < len; i++) {
-	    mdbytes[i] = input[offset + i];
-	}
+    for (int i = 0; i < len; i++) {
+        mdbytes[i] = input[offset + i];
+    }
     }
     StringBuffer hexString = new StringBuffer();
     for (int i = 0; i < mdbytes.length; i++) {
-	hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
+        hexString.append(Integer.toHexString(0xFF & mdbytes[i]));
     }
     return  hexString.toString();
 }
@@ -788,7 +797,7 @@ public final class Taint {
   * Method that returns string representation of stack trace.
   * XXX: lengthy stack trace often overflows logcat channel.
   *
-  * @param offset 
+  * @param offset
   *     Stack elements to begin.
   * @param len
   *     Number of elements to output.
@@ -800,8 +809,8 @@ public final class Taint {
     int i = 0, j = 0;
     for (StackTraceElement s: m) {
         if (i >= offset && (len == 0 || len >= j)) {
-            //sTrace += (s.getClassName() + "." + s.getMethodName()) + "<-";
-            sTrace += s.getMethodName() + "<-";
+            sTrace += (s.getClassName() + "." + s.getMethodName()) + "<-";
+            //sTrace += s.getMethodName() + "<-";
             j++;
         }
         i++;
