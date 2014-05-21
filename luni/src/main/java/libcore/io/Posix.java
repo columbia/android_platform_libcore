@@ -310,7 +310,8 @@ public final class Posix implements Os {
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
                 if (Taint.isTMeasureAPP()) {
-                    String fname  = Taint.logPathFromFdRetStr(fdInt);
+                    //String fname  = Taint.logPathFromFdRetStr(fdInt);
+                    String fname  = (fd.hasName) ? fd.name : "unknown";
                     String hash = Taint.getHashString(buffer.array(), buffer.position(), buffer.remaining());
                     Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
