@@ -717,7 +717,7 @@ public class OpenSSLSocketImpl
         //XXX - TMLog : We only record a single integer value -- instead of calculating hash value for it.
                 Taint.TMLog("SSLOutputStream.write0|" + Taint.incTmCounter() + "|" +
                             Taint.getNativeThreadId() + "|{" + String.valueOf(oneByte) +
-                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, 0) + "\n");
+                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, -1) + "\n");
                 Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
             }
 // end WITH_TAINT_TRACKING
@@ -754,7 +754,7 @@ public class OpenSSLSocketImpl
 
                     Taint.TMLog("SSLOutputStream.write1|" + Taint.incTmCounter() + "|" +
                             Taint.getNativeThreadId() + "|{" + Taint.getHashString(buf, offset, byteCount) + 
-                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, 0) + "\n");
+                            "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, -1) + "\n");
                     Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
                 }
 // end WITH_TAINT_TRACKING
