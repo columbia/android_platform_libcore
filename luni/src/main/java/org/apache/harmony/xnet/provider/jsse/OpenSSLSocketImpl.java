@@ -704,6 +704,7 @@ public class OpenSSLSocketImpl
 // begin WITH_TAINT_TRACKING
             int tag = Taint.getTaintInt(oneByte);
             FileDescriptor fd = socket.getFileDescriptor$();
+
             if (tag != (Taint.TAINT_CLEAR) || Taint.isTMeasureAPP()) {
                 String dstr = String.valueOf(oneByte);
                 // We only display at most Taint.dataBytesToLog characters in logcat of data
@@ -714,10 +715,12 @@ public class OpenSSLSocketImpl
                 dstr = dstr.replaceAll("\\p{C}", ".");
                 String addr = (fd.hasName) ? fd.name : "unknown";
                 String tstr = "0x" + Integer.toHexString(tag);
-        //XXX - TMLog : We only record a single integer value -- instead of calculating hash value for it.
+
+                //XXX - TMLog : We only record a single integer value -- instead of calculating hash value for it.
                 Taint.TMLog("SSLOutputStream.write0|" + Taint.incTmCounter() + "|" +
                             Taint.getNativeThreadId() + "|{" + String.valueOf(oneByte) +
                             "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, -1) + "\n");
+
                 Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
             }
 // end WITH_TAINT_TRACKING
@@ -751,12 +754,21 @@ public class OpenSSLSocketImpl
                     dstr = dstr.replaceAll("\\p{C}", ".");
                     String addr = (fd.hasName) ? fd.name : "unknown";
                     String tstr = "0x" + Integer.toHexString(tag);
-
+                    String hash = Taint.getHashString(buf, offset, byteCount);
                     Taint.TMLog("SSLOutputStream.write1|" + Taint.incTmCounter() + "|" +
-                            Taint.getNativeThreadId() + "|{" + Taint.getHashString(buf, offset, byteCount) + 
+                            Taint.getNativeThreadId() + "|{" + hash + 
                             "}|" + tstr + "|" + addr + "|"+ Taint.getStackString(3, -1) + "\n");
+
+                    if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
+                        String clearText = new String((byte[]) buf, offset, byteCount);
+                        Taint.TMHashLogTag(hash, clearText, tag);
+                    }
+
                     Taint.log("SSLOutputStream.write(" + addr + ") received data with tag " + tstr + " data=[" + dstr + "]");
                 }
+
+                
+
 // end WITH_TAINT_TRACKING
                 NativeCrypto.SSL_write(sslNativePointer, socket.getFileDescriptor$(),
                         OpenSSLSocketImpl.this, buf, offset, byteCount);

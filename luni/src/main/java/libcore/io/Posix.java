@@ -151,12 +151,9 @@ public final class Posix implements Os {
                 Taint.TMLog("libcore.os.read0|" + Taint.incTmCounter() + "|" +
                     Taint.getNativeThreadId() + "|{" + hash +
                     "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-                if (tag != Taint.TAINT_CLEAR) {
+                if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                     String clearText = new String((byte[])buffer, bufferOffset, byteCount);
-                    clearText = clearText.replaceAll("\n", "");
-                    hash = hash.concat(" - ");
-                    String logEntry = hash.concat(clearText);
-                    Taint.TMHashLog(logEntry);
+                    Taint.TMHashLogTag(hash, clearText, tag);
                 }
             }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
@@ -179,12 +176,9 @@ public final class Posix implements Os {
                     Taint.TMLog("libcore.os.pwrite0|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
                         "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-                    if (tag != Taint.TAINT_CLEAR) {
+                    if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                         String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
-                        clearText = clearText.replaceAll("\n", "");
-                        hash = hash.concat(" - ");
-                        String logEntry = hash.concat(clearText);
-                        Taint.TMHashLog(logEntry);
+                        Taint.TMHashLogTag(hash, clearText, tag);
                     }
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing a direct ByteBuffer with tag " + tstr);
@@ -223,12 +217,9 @@ public final class Posix implements Os {
                     Taint.TMLog("libcore.os.pwrite1|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
                         "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-                    if (tag != Taint.TAINT_CLEAR) {
+                    if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                         String clearText = new String((byte[])buffer, bufferOffset, byteCount);
-                        clearText = clearText.replaceAll("\n", "");
-                        hash = hash.concat(" - ");
-                        String logEntry = hash.concat(clearText);
-                        Taint.TMHashLog(logEntry);
+                        Taint.TMHashLogTag(hash, clearText, tag);
                     }
                 }
                 Taint.log("libcore.os.pwrite(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");
@@ -272,12 +263,12 @@ public final class Posix implements Os {
                 Taint.TMLog("libcore.os.read1|" + Taint.incTmCounter() + "|" +
                     Taint.getNativeThreadId() + "|{" + hash +
                     "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-                if (tag != Taint.TAINT_CLEAR) {
+                if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                     String clearText = new String((byte[])buffer, offset, byteCount);
                     clearText = clearText.replaceAll("\n", "");
                     hash = hash.concat(" - ");
                     String logEntry = hash.concat(clearText);
-                    Taint.TMHashLog(logEntry);
+                    Taint.TMHashLogTag(hash, clearText, tag);
                 }
             }
             Taint.log("libcore.os.read(" + fdInt + ") reading with tag " + tstr + " data[" + dstr + "]");
@@ -316,12 +307,9 @@ public final class Posix implements Os {
                     Taint.TMLog("libcore.os.sendto0|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
                         "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-                    if (tag != Taint.TAINT_CLEAR) {
+                    if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                         String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
-                        clearText = clearText.replaceAll("\n", "");
-                        hash = hash.concat(" - ");
-                        String logEntry = hash.concat(clearText);
-                        Taint.TMHashLog(logEntry);
+                        Taint.TMHashLogTag(hash, clearText, tag);
                     }
                 }
                 Taint.log("libcore.os.sendto(" + addr + ") received a ByteBuffer with tag " + tstr);
@@ -358,12 +346,9 @@ public final class Posix implements Os {
                     Taint.TMLog("libcore.os.send0|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
                         "}|" + tstr + "|" + addr + "|" + Taint.getStackString(3, -1) + "\n");
-                    if (tag != Taint.TAINT_CLEAR) {
+                    if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                         String clearText = new String((byte[])buffer, byteOffset, byteCount);
-                        clearText = clearText.replaceAll("\n", "");
-                        hash = hash.concat(" - ");
-                        String logEntry = hash.concat(clearText);
-                        Taint.TMHashLog(logEntry);
+                        Taint.TMHashLogTag(hash, clearText, tag);
                     }
                 }
                 if (tag != Taint.TAINT_CLEAR) {
@@ -409,12 +394,9 @@ public final class Posix implements Os {
                     Taint.TMLog("libcore.os.write0|" + Taint.incTmCounter() + "|" +
                         Taint.getNativeThreadId() + "|{" + hash +
                         "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-            if (tag != Taint.TAINT_CLEAR) {
+            if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                 String clearText = new String(buffer.array(), buffer.position(), buffer.remaining());
-                clearText = clearText.replaceAll("\n", "");
-                hash = hash.concat(" - ");
-                String logEntry = hash.concat(clearText);
-                Taint.TMHashLog(logEntry);
+                Taint.TMHashLogTag(hash, clearText, tag);
             }
         }
 
@@ -456,12 +438,9 @@ public final class Posix implements Os {
             Taint.TMLog("libcore.os.write1|" + Taint.incTmCounter() + "|" +
                     Taint.getNativeThreadId() + "|{" + hash +
                     "}|" + tstr + "|" + fname + "|"+ Taint.getStackString(3, -1) + "\n");
-            if (tag != Taint.TAINT_CLEAR) {
+            if (tag != Taint.TAINT_CLEAR || Taint.HASH_LOG_FLAG) {
                 String clearText = new String((byte[])buffer, offset, byteCount);
-                clearText = clearText.replaceAll("\n", "");
-                hash = hash.concat(" - ");
-                String logEntry = hash.concat(clearText);
-                Taint.TMHashLog(logEntry);
+                Taint.TMHashLogTag(hash, clearText, tag);
             }
                 }
                 Taint.log("libcore.os.write(" + fdInt + ") writing with tag " + tstr + " data[" + dstr + "]");

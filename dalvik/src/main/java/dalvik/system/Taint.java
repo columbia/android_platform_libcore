@@ -55,6 +55,8 @@ public final class Taint {
 
     public static final int tmport = 50000;
 
+    public static final boolean HASH_LOG_FLAG = true;
+
     /**
      * Updates the target String's taint tag.
      *
@@ -816,5 +818,10 @@ public final class Taint {
         i++;
     }
     return sTrace;
+  }
+
+  public static void TMHashLogTag(String hash, String clearText, int tag) {
+      clearText.replaceAll("\n", "##");
+      TMHashLog(hash + "::" + tag + "::"  + clearText);
   }
 }
